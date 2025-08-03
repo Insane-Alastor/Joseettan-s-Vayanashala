@@ -182,3 +182,5 @@ Enter your choice: """)
 
     else:
         print("Invalid Input")
+
+UI()
