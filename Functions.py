@@ -162,6 +162,8 @@ def return_book(user_id, name):
         print(f"Return by {user_data['Due_Date']}")
     else:
       print("You Have No Books In Due")
+  except:
+    pass
 
 """# **How Datas Are Ordered in Book.dat**
 *`[Book ID, Book Title, Volume, Author, Rent Amount, Availability]`*
