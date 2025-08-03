@@ -1,6 +1,6 @@
 #Import
 
-import Functions.py as fn
+import Functions as fn
 import pickle
 import random
 
