@@ -51,9 +51,9 @@ def search():
       print(b)
       print("| ID   |           Book Title           | Volume |        Author        | Rent Amount |  Availability  |")
       print(b)
-      if a in x[1] or a in x[3]:
-        while True:
-          x = pickle.load(f)
+      while True:
+        x = pickle.load(f)
+        if a in x[1] or a in x[3]:
           book_display(x)
           c+=1
   except EOFError:
