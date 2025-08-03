@@ -87,7 +87,7 @@ def rent(user_id, name):
       while True:
         a = n.tell()
         book_data = pickle.load(n)
-        if bookname in book_data[2]:
+        if bookname in book_data[1]:
           if input(f"You Mean {book_data[1]} by {book_data[3]} Volume {book_data[2]} (Y/n): ") in "Yy":
             if book_data[-1]:
               user_data["Book_No"] = book_data[0]
