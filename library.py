@@ -140,7 +140,9 @@ Enter your choice: """)
               print(f"Name   : {i[1]}")
               print(f"*Notice: A Book {data['Book']} is due by {data['Due_Date']}")
               print("--------------------------------------------------------------")
-
+        except EOFError:
+          if not b:
+            print("No Users With Dues")
     elif choice=="3":
       print("|   ID   |  Name")
       List=fn.users()   #List=[[userid,name],[userid,name].....]
