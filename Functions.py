@@ -90,6 +90,8 @@ def due(user_id, name):
         return data["Return_Status"]
       else:
         print("No Dues")
+  except EOFError:
+    pass
 
 import pickle
 def rent(user_id, name):
