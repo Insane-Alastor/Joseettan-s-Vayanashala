@@ -52,14 +52,14 @@ def new_reg():
       print("ID:", new_id)
       with open("ResourcePacks/reg.dat", "ab") as f:
         pickle.dump([new_id, name.title()], f)
-          with open(f"ResourcePacks/userdata/{new_id}.dat", "wb") as n:
-            default_data = {
-                    "Book_No": None, "Book": None,
-                    "Rented_On": None, "Due_Date": None,
-                    "Return_Status": True
+        with open(f"ResourcePacks/userdata/{new_id}.dat", "wb") as n:
+        default_data = {
+                "Book_No": None, "Book": None,
+                "Rented_On": None, "Due_Date": None,
+                "Return_Status": True
                 }
-            pickle.dump(default_data, n)
-            return new_id, name.title()
+        pickle.dump(default_data, n)
+        return new_id, name.title()
 
 def search():
   c=0
