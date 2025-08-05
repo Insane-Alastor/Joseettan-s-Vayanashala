@@ -1,6 +1,9 @@
-
 import pickle
+import os
+import random
+
 def reg():
+  print()
   user_input = input("Enter your Full Name/ID(Id preferred): ")
   try:
     with open("ResourcePacks/reg.dat", "rb") as f:
@@ -15,9 +18,8 @@ def reg():
     print("Looks Like A New Customer!")
     return new_reg()
 
-import pickle
-import random
 def new_reg():
+  print()
   name = input("Enter Full Name: ")
   ids = []
   try:
@@ -25,7 +27,7 @@ def new_reg():
       while True:
         x = pickle.load(f)
         ids.append(x[0])
-  except (EOFError, FileNotFoundError):
+  except EOFError:
     pass
   while True:
     new_id = str(random.randint(1000, 9999))
@@ -34,15 +36,16 @@ def new_reg():
       with open("ResourcePacks/reg.dat", "ab") as f:
         pickle.dump([new_id, name.title()], f)
         with open(f"ResourcePacks/userdata/{new_id}.dat", "wb") as n:
-        default_data = {
-                "Book_No": None, "Book": None,
-                "Rented_On": None, "Due_Date": None,
-                "Return_Status": True
-                }
-        pickle.dump(default_data, n)
-        return new_id, name.title()
+          default_data = {
+                  "Book_No": None, "Book": None,
+                  "Rented_On": None, "Due_Date": None,
+                  "Return_Status": True
+                  }
+          pickle.dump(default_data, n)
+          return new_id, name.title()
 
 def search():
+  print()
   c=0
   try:
     with open("ResourcePacks/Book.dat", "rb") as f:
@@ -61,8 +64,8 @@ def search():
       print("|"+" "*(((len(b)-len("Book Not Found"))//2)-1)+"BOOK NOT FOUND"+" "*(((len(b)-len("Book Not Found"))//2)-1)+"|")
     print(b)
 
-import pickle
 def due(user_id, name):
+  print()
   try:
     with open(f"ResourcePacks/userdata/{user_id}.dat", "rb") as f:
       data = pickle.load(f)
@@ -74,8 +77,8 @@ def due(user_id, name):
   except EOFError:
     pass
 
-import pickle
 def rent(user_id, name):
+  print()
   with open(f"ResourcePacks/userdata/{user_id}.dat", "rb") as f:
     user_data = pickle.load(f)
   if not user_data["Return_Status"]:
@@ -84,6 +87,7 @@ def rent(user_id, name):
   bookname = input("Enter Book Name: ").title()
   try:
     with open("ResourcePacks/Book.dat", "rb+") as n:
+      b=0
       while True:
         a = n.tell()
         book_data = pickle.load(n)
@@ -102,14 +106,16 @@ def rent(user_id, name):
                   pickle.dump(user_data, f_user)
                   n.seek(a)
                   pickle.dump(book_data, n)
+                  b+=1
             else:
               print("Book Not Available")
               break
   except EOFError:
+    if not b:
       print("Book Not Found")
 
-import pickle
 def return_book(user_id, name):
+  print()
   try:
     with open(f"ResourcePacks/userdata/{user_id}.dat", "rb") as f:
       user_data = pickle.load(f)
@@ -118,7 +124,15 @@ def return_book(user_id, name):
       if input("Returning it (Y/n): ") in "Yy":
         print(f"Due Date: {user_data['Due_Date']}")
         fine = input("Fine: ")
-        print(f"Fine paid: ₹{fine}")
+        if len(fine)<2:
+          fine="0"+fine
+        print(f"""
++--------------------+
+|                    |
+| Status: RETURNED   |
+| Fine  : ₹{fine}        |
+|                    |
++--------------------+""")
         with open("ResourcePacks/Book.dat", "rb+") as p:
           while True:
             try:
@@ -146,19 +160,8 @@ def return_book(user_id, name):
   except:
     pass
 
-"""# **How Datas Are Ordered in Book.dat**
-*`[Book ID, Book Title, Volume, Author, Rent Amount, Availability]`*
----
-*availability should only contain 1 or 0*
-
-
-
-
-
-"""
-
-import pickle
 def add():
+  print()
   L = []
   with open("ResourcePacks/Book.dat", "ab+") as f:
     f.seek(0)
@@ -184,15 +187,83 @@ def add():
         if input("Do you wish to add more books? (Y/n): ") in "Nn":
           break
 
-import pickle
+def remove():
+  print()
+  r_book=input('Name or ID Book To Remove:')
+  try:
+    with open("ResourcePacks/Book.dat","rb") as f:
+      A=[]
+      L=[]
+      while True:
+        book = pickle.load(f)
+        if r_book in book[1] or r_book==book[0]:
+          book_display(book)
+          if input("Is this book(Y/n):") in "Yy":
+            print("*****Book Removed*****")
+            A+=[book]
+            continue
+        L.append(book)
+  except EOFError:
+    if A==[]:
+      print("Book Not Found")
+    else:
+      with open("ResourcePacks/Book.dat","wb") as f:
+        for i in L:
+          pickle.dump(i,f)
+
+def edit():
+  print()
+  r_book=input('Name or ID Book To Edit:')
+  try:
+    with open("ResourcePacks/Book.dat","rb") as f:
+      L=[]
+      while True:
+        book = pickle.load(f)
+        if r_book in book[1] or r_book==book[0]:
+          book_display(book)
+          if input("Is this book(Y/n):") in "Yy":
+            while True:
+              edit=input("""
+  Do You Want To Edit
+
+  [1] Book Title
+  [2] Volume
+  [3] Author
+  [4] Rent Amount
+  [5] Availability
+
+  Choice[1-5]:""")
+              if edit=="1":
+                book[1]=input("Enter New Book Title:")
+              elif edit=="2":
+                book[2]=input("Enter New Volume:")
+              elif edit=="3":
+                book[3]=input("Enter New Author:")
+              elif edit=="4":
+                book[4]=input("Enter New Rent Amount:")
+              elif edit=="5":
+                book[5]=input("Enter New Availability:")
+              else:
+                print("Invalid Choice")
+              book_display(book)
+              if input("Is (Y/n):") in "Yy":
+                print("*****Book Edited*****")
+                break
+        L.append(book)
+  except EOFError:
+    with open("ResourcePacks/Book.dat","wb") as f:
+      for i in L:
+        pickle.dump(i,f)
+
 def feedback():
+  print()
   feedback_text = input("Enter your feedback:\n")
   with open("ResourcePacks/feedback.dat", "ab") as f:
     pickle.dump(feedback_text, f)
     print("Thank You For Your Feedback.")
 
-import pickle
 def view():
+  print()
   with open("ResourcePacks/Book.dat", "rb") as f:
     print("\t\t\t\tLIBRARY BOOKS")
     print("+------------------------------------------------------------------------------------------------------+")
@@ -206,10 +277,9 @@ def view():
         print("+------------------------------------------------------------------------------------------------------+")
         break
 
-import os
-import pickle
 def delete_account(user_id,name):
-  if not due(user_id,name):
+  if due(user_id,name):
+    print()
     print("Deleting Failed")
     return
   with open("ResourcePacks/reg.dat", "rb") as f:
@@ -219,6 +289,7 @@ def delete_account(user_id,name):
         x = pickle.load(f)
         if x == [user_id, name.title()]:
           os.remove(f"ResourcePacks/userdata/{user_id}.dat")
+          print("Account Deleted")
           continue
         L.append(x)
       except EOFError:
@@ -227,7 +298,6 @@ def delete_account(user_id,name):
     for i in L:
       pickle.dump(i,f)
 
-import pickle
 def users():
   UserIds=[]
   with open("ResourcePacks/reg.dat", "rb") as f:
