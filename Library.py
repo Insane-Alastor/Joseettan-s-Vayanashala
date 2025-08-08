@@ -156,10 +156,14 @@ Enter your choice:""",0.0007)
       List=fn.users()
       for i in List:
         fn.sleeps(f"|  {i[0]}  | {i[1]} ",0.01)
+      print()
       fn.sleeps("+-----------------------------------",0.001)
 
     elif choice=="6":
-      fn.sleeps("Enter the ID of the user you want to remove:",0.01)
+      fn.sleeps("ID of the user you want to remove:",0.01)
+      userid=input()
+      fn.sleeps("Name of the user you want to remove:",0.01)
+      n=input()
       if [userid,n] in fn.users():
         fn.sleeps(f"""ID: {userid}     Name: {n}
               Are You Sure You Want to Remove Account(Y/n):""",0.01)
