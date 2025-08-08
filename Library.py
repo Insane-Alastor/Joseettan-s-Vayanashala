@@ -5,13 +5,13 @@ import pickle
 import random
 
 #User Interface
-
+fn.sleeps("           WELCOME TO JOSETTAN'S VAYANASHALA",0.01)
 def UI():
   while True:
     fn.sleeps("""
 
 ╔════════════════════════════════════════════════════════╗
-║                 WELCOME TO OUR LIBRARY                 ║
+║                      MAIN MENU                         ║
 ║                                                        ║
 ║  Please select an option:                              ║
 ║                                                        ║
