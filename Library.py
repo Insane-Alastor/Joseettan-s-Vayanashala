@@ -156,6 +156,7 @@ Enter your choice:""",0.0007)
       List=fn.users()
       for i in List:
         fn.sleeps(f"|  {i[0]}  | {i[1]} ",0.01)
+      fn.sleeps("+-----------------------------------",0.001)
 
     elif choice=="6":
       fn.sleeps("Enter the ID of the user you want to remove:",0.01)
