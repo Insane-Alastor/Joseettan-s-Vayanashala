@@ -1,4 +1,3 @@
-
 #Import
 
 import Functions as fn
@@ -9,8 +8,7 @@ import random
 
 def UI():
   while True:
-    choice=input("""
-
+    fn.sleeps("""
 
 ╔════════════════════════════════════════════════════════╗
 ║                 WELCOME TO OUR LIBRARY                 ║
@@ -24,7 +22,8 @@ def UI():
 ║    5. Feedback                                         ║
 ║    0. Exit Program                                     ║
 ╚════════════════════════════════════════════════════════╝
-Enter your choice: """)
+Enter your choice:""",0.0007)
+    choice=input()
     if choice=="1":
       user_portal()
 
@@ -32,22 +31,24 @@ Enter your choice: """)
       fn.search()
 
     elif choice=="3":
-      if input("Enter the password:")=="lilboi@1":
+      fn.sleeps("Enter the password:",0.01)
+      if input()=="lilboi@1":
         admin_portal()
 
     elif choice=="4":
-      print("You have selected View All Books")
       fn.view()
 
     elif choice=="5":
       fn.feedback()
 
     elif choice=="0":
-      print("Exiting Program")
+      fn.sleeps("Exiting...",0.01)
+      print()
+      print("Thank You For Using Our Library")
       break
 
     else:
-      print("Invalid Input")
+      fn.sleeps("Invalid Input",0.01)
 
 #User Portal
 
@@ -57,8 +58,7 @@ def user_portal():
     n=name
     if len(n)<31:
       n=n+" "*(29-len(n))
-    choice=input(f"""
-
+    fn.sleeps(f"""
 
 ╔═════════════════════════════════════════════════════╗
 ║               WELCOME, {n.upper()}║
@@ -72,22 +72,24 @@ def user_portal():
 ║                                                     ║
 ║   Type 'Back' to return to the main menu            ║
 ╚═════════════════════════════════════════════════════╝
-Enter your choice: """)
+Enter your choice:""",0.0007)
+    choice=input()
     if choice=="1":
-      print("Proceeding to Renting")
+      fn.sleeps("Proceeding to Renting...",0.01)
       fn.rent(user_id,name)
 
     elif choice=="2":
+      fn.sleeps("Proceeding to Returning Menu...",0.01)
       fn.return_book(user_id,name)
 
     elif choice=="3":
-      print("Checking Due Status")
+      fn.sleeps("Checking Dues...",0.01)
       fn.due(user_id,name)
 
     elif choice=="4":
-      if input(f"""ID:{user_id} Name: {name}
-      Are You Sure You Want to Remove Account(Y/n):""") in "Yy":
-        print("Proceeding")
+      fn.sleeps("Are You Sure You Want to Remove Your Account(Y/n):",0.01)
+      if input() in "Yy":
+        fn.sleeps("Proceeding...",0.02)
         fn.delete_account(user_id,name)
         UI()
         break
@@ -96,14 +98,13 @@ Enter your choice: """)
       break
 
     else:
-      print("Invalid Input")
+      fn.sleeps("Invalid Input",0.01)
 
 #Admin
 
 def admin_portal():
   while True:
-    choice=input("""
-
+    fn.sleep("""
 
 ╔════════════════════════════════════════════════════════╗
 ║                    ADMIN PORTAL                        ║
@@ -118,7 +119,8 @@ def admin_portal():
 ║                                                        ║
 ║   Type 'Back' to return to the main menu               ║
 ╚════════════════════════════════════════════════════════╝
-Enter your choice: """)
+Enter your choice:""",0.0007)
+    choice=input()
 
     if choice=="1":
       fn.add()
@@ -127,7 +129,7 @@ Enter your choice: """)
     elif choice=="3":
       fn.edit()
     elif choice=="4":
-      print("\t\tAll Pending Returns")
+      fn.sleeps("Loading...",0.01)
       List=fn.users()
       for i in List:
         try:
@@ -144,23 +146,25 @@ Enter your choice: """)
             print("No Users With Dues")
 
     elif choice=="5":
-      print()
-      print("|   ID   |  Name")
+      fn.sleeps("""
+      +-----------------------------------
+      |   ID   |         NAME
+      +-----------------------------------""",0.001)
       print()
       List=fn.users()
       for i in List:
-        print("| ",i[0]," |",i[1])
+        fn.sleeps(f"|  {i[0]}  | {i[1]} ",0.01)
 
     elif choice=="6":
-      userid=input("Enter ID:")
-      n=input("Enter Name:")
+      fn.sleeps("Enter the ID of the user you want to remove:",0.01)
       if [userid,n] in fn.users():
-        if input(f"""ID:{userid} Name: {n}
-        Are You Sure You Want to Remove Account(Y/n):""") in "Yy":
-          print("Proceeding")
+        fn.sleeps(f"""ID: {userid}     Name: {n}
+              Are You Sure You Want to Remove Account(Y/n):""",0.01)
+        if input() in "Yy":
+          fn.sleeps("Proceeding...",0.01)
           fn.delete_account(userid,n)
       else:
-        print("User Not Found")
+        fn.sleeps("User Not Found",0.01)
 
     elif choice=="7":
       with open("ResourcePacks/feedback.dat","rb") as f:
@@ -168,15 +172,18 @@ Enter your choice: """)
         try:
           while True:
             feedback = pickle.load(f)
-            print("\n----------------------")
-            print("Feedback:", feedback)
-            print("----------------------")
-            if input("Next(Y/n):") in "Nn":
+            fn.sleeps(f"""
+            ----------------------------------------
+            Feedback: {feedback}
+            ----------------------------------------
+            Next(Y/n):""",0.01)
+            if input() in "Nn":
               while True:
                 x=pickle.load(f)
                 L.append(x)
         except EOFError:
-          print("No Feedbacks left")
+          fn.sleeps("\nNo Feedbacks left",0.01)
+          print()
           with open("ResourcePacks/feedback.dat","wb") as f:
             for i in L:
               pickle.dump(i,f)
@@ -185,5 +192,5 @@ Enter your choice: """)
       break
 
     else:
-        print("Invalid Input")
+      fn.sleeps("Invalid Input",0.01)
 UI()
