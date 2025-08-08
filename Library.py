@@ -104,7 +104,7 @@ Enter your choice:""",0.0007)
 
 def admin_portal():
   while True:
-    fn.sleep("""
+    fn.sleeps("""
 
 ╔════════════════════════════════════════════════════════╗
 ║                    ADMIN PORTAL                        ║
