@@ -10,7 +10,7 @@ print()
 fn.sleeps("            WELCOME TO JOSETTAN'S VAYANASHALA",0.01)
 def UI():
   while True:
-    fn.sleeps("""
+    choice=fn.noinput("""
 
 ╔════════════════════════════════════════════════════════╗
 ║                      MAIN MENU                         ║
@@ -25,7 +25,6 @@ def UI():
 ║    0. Exit Program                                     ║
 ╚════════════════════════════════════════════════════════╝
 Enter your choice:""",0.0007)
-    choice=input()
     if choice=="1":
       user_portal()
 
@@ -33,8 +32,7 @@ Enter your choice:""",0.0007)
       fn.search()
 
     elif choice=="3":
-      fn.sleeps("Enter the password:",0.01)
-      if input()=="lilboi@1":
+      if fn.noinput("Enter the password:",0.01)=="lilboi@1":
         admin_portal()
 
     elif choice=="4":
@@ -48,7 +46,6 @@ Enter your choice:""",0.0007)
       print()
       print("Thank You For Using Our Library")
       break
-
     else:
       fn.sleeps("Invalid Input",0.01)
 
@@ -89,8 +86,7 @@ Enter your choice:""",0.0007)
       fn.due(user_id,name)
 
     elif choice=="4":
-      fn.sleeps("Are You Sure You Want to Remove Your Account(Y/n):",0.01)
-      if input() in "Yy":
+      if fn.noinput("Are You Sure You Want to Remove Your Account(Y/n):",0.01) in "Yy":
         fn.sleeps("Proceeding...",0.02)
         fn.delete_account(user_id,name)
         UI()
@@ -131,13 +127,14 @@ Enter your choice:""",0.0007)
     elif choice=="3":
       fn.edit()
     elif choice=="4":
-      fn.sleeps("Loading...",0.01)
       List=fn.users()
+      b=0
       for i in List:
         try:
           with open(f"ResourcePacks/userdata/{i[0]}.dat", "rb") as f:
             data = pickle.load(f)
             if not data["Return_Status"]:
+              b+=1
               print("--------------------------------------------------------------")
               print(f"ID     : {i[0]}")
               print(f"Name   : {i[1]}")
@@ -156,18 +153,17 @@ Enter your choice:""",0.0007)
       List=fn.users()
       for i in List:
         fn.sleeps(f"|  {i[0]}  | {i[1]} ",0.01)
-      print()
+        print()
       fn.sleeps("+-----------------------------------",0.001)
 
     elif choice=="6":
-      fn.sleeps("ID of the user you want to remove:",0.01)
-      userid=input()
-      fn.sleeps("Name of the user you want to remove:",0.01)
-      n=input()
+
+      userid=fn.noinput("ID of the user you want to remove:",0.01)
+      n=fn.noinput("Name of the user you want to remove:",0.01)
       if [userid,n] in fn.users():
-        fn.sleeps(f"""ID: {userid}     Name: {n}
+        a=fn.noinput(f"""ID: {userid}     Name: {n}
               Are You Sure You Want to Remove Account(Y/n):""",0.01)
-        if input() in "Yy":
+        if a in "Yy":
           fn.sleeps("Proceeding...",0.01)
           fn.delete_account(userid,n)
       else:
