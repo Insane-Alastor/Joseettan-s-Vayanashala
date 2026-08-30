@@ -38,6 +38,7 @@ Follow these steps to run the project locally on your machine:
 
 ### Prerequisites
 
+* Git latest 
 * Python 3.x installed on your system.
 * MySQL Server installed and running.
 
