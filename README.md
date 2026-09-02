@@ -66,8 +66,8 @@ To access admin privileges, use the following default password: ```admin```
 ## 🎓 Academic Context
 
 * **Course:** Class XII Computer Science (AISSCE Board Project)
-* **Developer:** Insane-Alastor
-* **Contributor:** MFardeeni
+* **Developer:** [Insane-Alastor](https://github.com/Insane-Alastor)
+* **Contributor:** [MFardeeni](https://github.com/MFardeeni)
 
 ---
 
