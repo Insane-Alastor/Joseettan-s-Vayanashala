@@ -56,11 +56,18 @@ Follow these steps to run the project locally on your machine:
     python Library.py
 ---
 
+## 👮 Admin Access
+
+To access admin privileges, use the following default password: ```admin```
+
+---
+
 
 ## 🎓 Academic Context
 
 * **Course:** Class XII Computer Science (AISSCE Board Project)
 * **Developer:** Insane-Alastor
+* **Contributor:** MFardeeni
 
 ---
 
