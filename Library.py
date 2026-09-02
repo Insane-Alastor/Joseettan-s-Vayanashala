@@ -32,7 +32,7 @@ Enter your choice:""",0.0007)
       fn.search()
 
     elif choice=="3":
-      if fn.noinput("Enter the password:",0.01)=="lilboi@1":
+      if fn.noinput("Enter the password:",0.01)=="admin":
         admin_portal()
 
     elif choice=="4":
